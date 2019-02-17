@@ -1,0 +1,9 @@
+*                               { margin: 0; padding: 0; }
+
+#chat-area                      { height: 300px; overflow: auto; border: 0px; padding: 20px; }
+#chat-area span                 { float: left; color: white; background: #333; padding: 4px 8px; -moz-border-radius: 5px; -webkit-border-radius: 8px; margin: 0 5px 0 0; }
+#chat-area p                    { padding: 8px 0; border-bottom: 1px solid #ccc; text-align: left;}
+
+#send-message-area p            { float: center; color: white; padding-top: 27px; font-size: 14px; }
+#sendie                         { border: 0px; width: 400px; padding: 5px; }
+
