@@ -48,6 +48,29 @@ class token_user {
     }
 
     /**
+     * Clean text field from tags, etc
+     *
+     * @param $text
+     * @return string
+     */
+    public function cleanTextField($text) {
+        $text = striptags($text);
+        $text = htmlentities($text);
+        return $text;
+    }
+
+    /**
+     * Clean information fields from possible hacks attempts
+     *
+     * @param $info
+     * @return array
+     */
+    public function cleanInfo($info) {
+        $info['fio'] = $this->cleanTextField($info['fio']);
+        return $info;
+    }
+
+    /**
      * Insert user detail in the database
      *
      * @param $addr
@@ -55,6 +78,7 @@ class token_user {
      * @return bool|mysqli_result
      */
     public function insert($info) {
+        $info = $this->cleanInfo($info);
         return $this->_mysqli->query(sprintf("INSERT INTO " . DIGIID_TBL_PREFIX . "users (`addr`, `fio`) VALUES ('%s', '%s')", $this->_mysqli->real_escape_string($this->addr), $this->_mysqli->real_escape_string($info['fio'])));
     }
 
@@ -66,6 +90,7 @@ class token_user {
      * @return bool|mysqli_result
      */
     public function update($info) {
+        $info = $this->cleanInfo($info);
         return $this->_mysqli->query(sprintf("UPDATE " . DIGIID_TBL_PREFIX . "users SET fio = '%s' WHERE addr = '%s' ", $this->_mysqli->real_escape_string($info['fio']), $this->_mysqli->real_escape_string($this->addr)));
     }
 
@@ -88,6 +113,7 @@ class token_user {
         $result = $this->_mysqli->query($sql = sprintf("SELECT fio FROM " . DIGIID_TBL_PREFIX . "users WHERE addr = '%s'", $this->_mysqli->real_escape_string($this->addr)));
         if($result) {
             $row = $result->fetch_assoc();
+            $row = $this->cleanInfo($row);
             if(count($row)) return $row;
         }
         return false;
