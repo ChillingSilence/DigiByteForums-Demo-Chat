@@ -81,7 +81,7 @@ $nickname = $user_info['fio'];
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Hello, <?= htmlentities($user_info['fio']); ?>!</h1>
+            <h1 class="cover-heading">Hello, <?= $nickname ?>!</h1>
 
             <p class="lead">Your address:<br />
             <small><?= $address ?></small></p>
